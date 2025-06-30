@@ -34,10 +34,9 @@ async function findBookByIdController(request, resolve) { // GET /books/:id
 async function updateBookController(request, resolve) { // PUT /books/:id
      const bookId = request.params.id
      const updatedBook = request.body
-     const userId = request.userId
 
      try {
-          const response = await bookService.updateBookService(updatedBook, bookId, userId)
+          const response = await bookService.updateBookService(updatedBook, bookId)
           return resolve.status(200).send({ response })
      } catch (erro) {
           return resolve.status(400).send(erro.message)
@@ -46,10 +45,9 @@ async function updateBookController(request, resolve) { // PUT /books/:id
 
 async function deleteBookController(request, resolve) { // DELETE /books/:id
      const bookId = request.params.id
-     const userId = request.userId
 
      try {
-          const response = await bookService.deleteBookService(bookId, userId)
+          const response = await bookService.deleteBookService(bookId)
           return resolve.status(200).send({ response })
      } catch (erro) {
           return resolve.status(400).send(erro.message)

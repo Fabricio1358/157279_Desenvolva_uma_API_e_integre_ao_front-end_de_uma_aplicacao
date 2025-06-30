@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Header from '../../components/Header/Header'
 import "./index.scss"
 import SubmenuLivros from '../../components/SubmenuLivros/SubmenuLivros'
-import { LivrosService } from '../../api/LivrosService'
+import { LivrosService } from '../../api/LivrosService.js'
 import { Link } from "react-router-dom"
 
 const Livros = () => {

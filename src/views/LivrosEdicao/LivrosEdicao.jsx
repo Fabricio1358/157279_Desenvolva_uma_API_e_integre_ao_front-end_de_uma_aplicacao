@@ -3,7 +3,7 @@ import Header from '../../components/Header/Header'
 import "./index.scss"
 import SubmenuLivros from '../../components/SubmenuLivros/SubmenuLivros'
 import { useParams } from 'react-router-dom'
-import { LivrosService } from '../../api/LivrosService'
+import { LivrosService } from '../../api/LivrosService.js'
 
 const LivrosEdicao = () => {
      let { livroId } = useParams();
@@ -19,11 +19,11 @@ const LivrosEdicao = () => {
           const body = {
                id: Number(livro.id),
                titulo: livro.titulo,
-               num_paginas: Number(livro.num_paginas),
+               paginas: Number(livro.paginas),
                isbn: livro.isbn,
                editora: livro.editora
           }
-          if (livro.id != undefined && livro.id != '' && livro.titulo != undefined && livro.titulo != '' && livro.num_paginas != undefined && livro.num_paginas != '' && livro.isbn != undefined && livro.isbn != '' && livro.editora != undefined && livro.editora != '') {
+          if (livro.id != undefined && livro.id != '' && livro.titulo != undefined && livro.titulo != '' && livro.paginas != undefined && livro.paginas != '' && livro.isbn != undefined && livro.isbn != '' && livro.editora != undefined && livro.editora != '') {
                await LivrosService.updateLivro(Number(livro.id), body)
                     .then(({ data }) => {
                          alert(data.mensagem)
@@ -32,7 +32,6 @@ const LivrosEdicao = () => {
                          alert(`${status} - ${data}`)
                     });
           }
-
      }
 
      useEffect(() => {
@@ -57,7 +56,7 @@ const LivrosEdicao = () => {
                               </div>
                               <div className='form-group'>
                                    <label>Número de Páginas</label>
-                                   <input type="text" required onChange={(event) => { setLivro({ ...livro, num_paginas: event.target.value }) }} value={livro.num_paginas || ''}></input>
+                                   <input type="text" required onChange={(event) => { setLivro({ ...livro, paginas: event.target.value }) }} value={livro.paginas || ''}></input>
                               </div>
                               <div className='form-group'>
                                    <label>ISBN</label>

@@ -3,21 +3,23 @@ import db from '../config/database.js'
 db.run(`
           CREATE TABLE IF NOT EXISTS books (
                id INTEGER PRIMARY KEY AUTOINCREMENT,
-               title TEXT NOT NULL,
-               author TEXT NOT NULL
+               titulo TEXT NOT NULL,
+               paginas INT NOT NULL,
+               isbn TEXT NOT NULL,
+               editora TEXT NOT NULL
           )
      `
 )
 
 function createBookRepository(newBook) {
      return new Promise((resolve, reject) => {
-          const { title, author } = newBook
+          const { titulo, paginas, isbn, editora } = newBook
           db.run(
                `
-                    INSERT INTO books (title, author)
-                    VALUES (?, ?)
+                    INSERT INTO books (titulo, paginas, isbn, editora)
+                    VALUES (?, ?, ?, ?)
                `,
-               [title, author],
+               [titulo, paginas, isbn, editora],
                function (err) {
                     if (err) {
                          reject(err)
@@ -63,7 +65,7 @@ function findBookByIdRepository(bookId) {
 
 function updateBookRepository(updatedBook, bookId) {
      return new Promise((resolve, reject) => {
-          const fields = ['title', 'author'];
+          const fields = ['titulo', 'paginas', 'isbn', 'editora'];
           let query = 'UPDATE books SET';
           const values = [];
 
