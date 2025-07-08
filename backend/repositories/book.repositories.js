@@ -68,23 +68,27 @@ function updateBookRepository(updatedBook, bookId) {
           const fields = ['titulo', 'paginas', 'isbn', 'editora'];
           let query = 'UPDATE books SET';
           const values = [];
-
           fields.forEach(field => {
                if (updatedBook[field] !== undefined) {
                     query += ` ${field} = ?,`;
                     values.push(updatedBook[field]);
                }
           });
-
-          query = query.slice(0, -1); // Remove a última vírgula
+          query = query.slice(0, -1);
           query += ' WHERE id = ?';
           values.push(bookId);
-
-          db.run(query, values, (err) => {
+          db.run(query, values, function(err) { // ✅ Usar function para ter acesso ao 'this'
                if (err) {
                     reject(err);
                } else {
-                    resolve({ ...updatedBook, bookId });
+                    // ✅ Buscar o livro atualizado do banco
+                    db.get('SELECT * FROM books WHERE id = ?', [bookId], (err, row) => {
+                         if (err) {
+                              reject(err);
+                         } else {
+                              resolve(row);
+                         }
+                    });
                }
           });
      });

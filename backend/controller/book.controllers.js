@@ -37,7 +37,10 @@ async function updateBookController(request, resolve) { // PUT /books/:id
 
      try {
           const response = await bookService.updateBookService(updatedBook, bookId)
-          return resolve.status(200).send({ response })
+          return resolve.status(200).send({
+               mensagem: 'Livro atualizado com sucesso',
+               livro: response
+          });
      } catch (erro) {
           return resolve.status(400).send(erro.message)
      }
@@ -48,7 +51,10 @@ async function deleteBookController(request, resolve) { // DELETE /books/:id
 
      try {
           const response = await bookService.deleteBookService(bookId)
-          return resolve.status(200).send({ response })
+          return resolve.status(200).send({
+               mensagem: 'Livro deletado com sucesso',
+               livro: response
+          });
      } catch (erro) {
           return resolve.status(400).send(erro.message)
      }

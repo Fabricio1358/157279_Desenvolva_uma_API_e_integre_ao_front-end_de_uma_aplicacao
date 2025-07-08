@@ -22,7 +22,7 @@ async function findBookByIdService(bookId) {
 async function updateBookService(updatedBook, bookId) {
      const book = await bookRepository.findBookByIdRepository(bookId)
      if (!book) throw new Error("Book not found")
-     // const userId = request.userId // Removido, pois não é necessário para updateBookService
+     // const userId = request.userId // não necessário
      const response = await bookRepository.updateBookRepository(updatedBook, bookId)
      return response
 }
@@ -30,7 +30,7 @@ async function updateBookService(updatedBook, bookId) {
 async function deleteBookService(bookId) {
      const book = await bookRepository.findBookByIdRepository(bookId)
      if (!book) throw new Error("Book not found")
-     // const userId = request.userId // Removido, pois não é necessário para deleteBookService
+     // const userId = request.userId // não necessário
      const response = await bookRepository.deleteBookRepository(bookId) // Corrigido para chamar deleteBookRepository
      return response
 }

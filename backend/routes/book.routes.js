@@ -10,8 +10,7 @@ router.get('/', bookController.findAllBooksController)
 router.post('/', validate(bookSchema), bookController.createBookController)
 
 router.get('/:id', validateBookId, bookController.findBookByIdController)
-router.patch('/:id', validateBookId, bookController.updateBookController)
+router.put('/:id', validateBookId, bookController.updateBookController)
 router.delete('/:id', validateBookId, bookController.deleteBookController)
-
 
 export default router

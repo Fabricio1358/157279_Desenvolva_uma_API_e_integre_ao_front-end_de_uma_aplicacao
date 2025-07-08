@@ -9,10 +9,10 @@ function ListaLivros() {
      }, []);
 
      return (
-          <ul>
+          <ul className='livros'>
                {livros.map(livro => (
                     <li key={livro.id}>
-                         {livro.titulo} - {livro.paginas} páginas - ISBN: {livro.ISBN} - Editora: {livro.editora}
+                         {livro.titulo} - {livro.paginas} páginas - ISBN: {livro.isbn} - Editora: {livro.editora}
                     </li>
                ))}
           </ul>

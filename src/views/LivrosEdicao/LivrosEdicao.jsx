@@ -4,15 +4,28 @@ import "./index.scss"
 import SubmenuLivros from '../../components/SubmenuLivros/SubmenuLivros'
 import { useParams } from 'react-router-dom'
 import { LivrosService } from '../../api/LivrosService.js'
+import { useNavigate } from 'react-router-dom'
 
 const LivrosEdicao = () => {
+     const navegate = useNavigate()
      let { livroId } = useParams();
 
-     const [livro, setLivro] = useState([])
+     const [livro, setLivro] = useState({
+          id: '',
+          titulo: '',
+          paginas: '',
+          isbn: '',
+          editora: ''
+     });
 
      async function getLivro() {
-          const { data } = await LivrosService.getLivro(livroId);
-          setLivro(data)
+          try {
+               const { data } = await LivrosService.getLivro(livroId);
+               setLivro(data.book);
+               console.log(data.book)
+          } catch (error) {
+               alert('Erro ao buscar livro');
+          }
      }
 
      async function editLivro() {
@@ -27,6 +40,7 @@ const LivrosEdicao = () => {
                await LivrosService.updateLivro(Number(livro.id), body)
                     .then(({ data }) => {
                          alert(data.mensagem)
+                         navegate('/livros')
                     })
                     .catch(({ response: { data, status } }) => {
                          alert(`${status} - ${data}`)
@@ -35,8 +49,8 @@ const LivrosEdicao = () => {
      }
 
      useEffect(() => {
-          getLivro()
-     }, [])
+          getLivro();
+     }, []);
 
      return (
           <>
@@ -48,27 +62,28 @@ const LivrosEdicao = () => {
                          <form id="formulario">
                               <div className='form-group'>
                                    <label>Id</label>
-                                   <input type="text" disabled required onChange={(event) => { setLivro({ ...livro, id: event.target.value }) }} value={livro.id || ''}></input>
+                                   <input type="text" disabled value={livro.id || ''} />
                               </div>
                               <div className='form-group'>
                                    <label>Titulo</label>
-                                   <input type="text" required onChange={(event) => { setLivro({ ...livro, titulo: event.target.value }) }} value={livro.titulo || ''} ></input>
+                                   <input type="text" value={livro.titulo || ''} onChange={(e) => setLivro({ ...livro, titulo: e.target.value })} />
                               </div>
                               <div className='form-group'>
                                    <label>Número de Páginas</label>
-                                   <input type="text" required onChange={(event) => { setLivro({ ...livro, paginas: event.target.value }) }} value={livro.paginas || ''}></input>
+                                   <input type="text" value={livro.paginas || ''} onChange={(e) => setLivro({ ...livro, paginas: e.target.value })} />
                               </div>
                               <div className='form-group'>
                                    <label>ISBN</label>
-                                   <input type="text" required onChange={(event) => { setLivro({ ...livro, isbn: event.target.value }) }} value={livro.isbn || ''}></input>
+                                   <input type="text" value={livro.isbn || ''} onChange={(e) => setLivro({ ...livro, isbn: e.target.value })} />
                               </div>
                               <div className='form-group'>
                                    <label>Editora</label>
-                                   <input type="text" required onChange={(event) => { setLivro({ ...livro, editora: event.target.value }) }} value={livro.editora || ''}></input>
+                                   <input type="text" value={livro.editora || ''} onChange={(e) => setLivro({ ...livro, editora: e.target.value })} />
                               </div>
                               <div className='form-group'>
-                                   <button onClick={() => {
-                                        editLivro()
+                                   <button onClick={(e) => {
+                                        e.preventDefault();
+                                        editLivro();
                                    }}>Atualizar Livro</button>
                               </div>
                          </form>
