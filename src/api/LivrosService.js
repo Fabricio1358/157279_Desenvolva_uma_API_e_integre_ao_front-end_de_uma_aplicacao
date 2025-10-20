@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000"
+const BASE_URL = "https://one57279-desenvolva-uma-api-e-integre-ao.onrender.com/"
 
 export class LivrosService{
     static getLivros(){
