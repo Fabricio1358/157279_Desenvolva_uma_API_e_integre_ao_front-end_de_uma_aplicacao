@@ -2,6 +2,8 @@
 
 Projeto em React com API simples em Node.
 
+Link do Netlify: <https://jazzy-truffle-6b0947.netlify.app/>
+
 ## Visão geral
 
 Este repositório contém um frontend em React (Vite) em `src/` e uma API REST simples em Node/Express em `backend/`.
@@ -91,27 +93,6 @@ O servidor do backend inicia na porta configurada em `process.env.PORT` ou `3000
 - `backend/controller/` - controllers que tratam as requisições.
 - `backend/service/`, `backend/repositories/` - lógica de negócio e acesso a dados.
 - `backend/schema/` - schemas Zod para validação.
-
-## Testes rápidos com curl / HTTPie
-
-Exemplos usando curl:
-
-```powershell
-# Listar livros
-curl http://localhost:3000/books
-
-# Criar livro
-curl -X POST http://localhost:3000/books -H "Content-Type: application/json" -d '{"titulo":"Meu Livro","paginas":200,"isbn":"123","editora":"Editora X"}'
-
-# Buscar por id
-curl http://localhost:3000/books/1
-
-# Atualizar
-curl -X PUT http://localhost:3000/books/1 -H "Content-Type: application/json" -d '{"titulo":"Meu Livro 2","paginas":210,"isbn":"1234","editora":"Editora X"}'
-
-# Deletar
-curl -X DELETE http://localhost:3000/books/1
-```
 
 ## Variáveis de ambiente
 
